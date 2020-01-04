@@ -19,23 +19,23 @@ int main() {
 
   cout << endl;
     
-  // cout << "====================== Question 2 ======================" << endl << endl;
+  cout << "====================== Question 2 ======================" << endl << endl;
 
-  // cout << "The edit distance between 'an' and 'na' is " << edit_distance("an","na") << endl;
+  cout << "The edit distance between 'an' and 'na' is " << edit_distance("an","na") << endl;
 
-  // cout << "The edit distance between 'spelling' and 'spelling' is " << edit_distance("spelling","spelling") << endl;
+  cout << "The edit distance between 'spelling' and 'spelling' is " << edit_distance("spelling","spelling") << endl;
   
-  // cout << "The edit distance between 'speling' and 'spelling' is " << edit_distance("speling","spelling") << endl;
+  cout << "The edit distance between 'speling' and 'spelling' is " << edit_distance("speling","spelling") << endl;
 
-  //   cout << "The edit distance between 'speling' and 'a' is " << edit_distance("speling","a") << endl;
+    cout << "The edit distance between 'speling' and 'a' is " << edit_distance("speling","a") << endl;
   
-  // cout << "The edit distance between 'peotryy' and 'poetry' is " << edit_distance("peotryy","poetry") << endl;
+  cout << "The edit distance between 'peotryy' and 'poetry' is " << edit_distance("peotryy","poetry") << endl;
 
-  // cout << "The edit distance between 'korrectud' and 'corrected' is " << edit_distance("korrectud","corrected") << endl;
+  cout << "The edit distance between 'korrectud' and 'corrected' is " << edit_distance("korrectud","corrected") << endl;
 
-  // cout << "The edit distance between 'nonexistential' and 'nonexistent' is " << edit_distance("nonexistential","nonexistent") << endl;
+  cout << "The edit distance between 'nonexistential' and 'nonexistent' is " << edit_distance("nonexistential","nonexistent") << endl;
 
-  // cout << endl;
+  cout << endl;
   
   // cout << "====================== Question 3 ======================" << endl << endl;
 
