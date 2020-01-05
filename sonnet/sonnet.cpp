@@ -194,9 +194,6 @@ bool find_rhyme_scheme(const char* filename, char* scheme)
     if (!get_word(line,wordCount,word)) break;
     if (!find_phonetic_ending(word,ending)) cout << "No Dict" << endl;
     scheme[i] = rhyming_letter(ending);
-
-    //cout << line << " - " << word << " - " <<  ending << " - " << scheme[i] << endl;    
-
     i++;
   } while (!input.fail());
   input.close();
