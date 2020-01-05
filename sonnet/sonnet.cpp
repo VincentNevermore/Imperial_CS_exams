@@ -4,6 +4,7 @@
 #include <cassert>
 #include <map>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -88,5 +89,133 @@ char rhyming_letter(const char *ending) {
   // otherwise return the letter corresponding to the existing ending
   return lookup[end];
 }
-
 /* START WRITING YOUR FUNCTION BODIES HERE */
+
+// Question 1
+int count_words (const char *line) {
+    char word[20];
+    int i = 1;
+
+    //loop using get_word
+    while (get_word(line, i, word)){
+      i++;
+    }
+    return i -1;
+}
+
+// Question 2
+bool find_phonetic_ending (const char* word, char* phonetic_ending) {
+   ifstream in;
+   char line[255];
+   char matchword[255];
+   bool found = false;
+
+   strcpy(phonetic_ending, "");
+
+   in.open("dictionary.txt");
+
+   while (!in.fail()) {
+     in.getline(line,255);
+
+     get_word(line,1,matchword);
+
+     if (strcmp(word, matchword) == 0) {
+       found = true;
+       break;
+     }
+   }
+
+   //close the stream
+   in.close();
+
+   if (!found) {
+     return false;
+   }
+   
+   //count the line of the words
+   int num_words = count_words(line);
+   int loc_last_vowel = 0;
+   char w[255];
+
+   for (int i = num_words; i > 1; i--) {
+    get_word(line, i, w);
+    if (isVowel(w)) {
+      loc_last_vowel = i;
+      break;
+    }
+  }
+
+  for (int i = loc_last_vowel; i <= num_words; i++) {
+    get_word(line, i, w);
+    strcat(phonetic_ending, w);
+  }
+
+  return true;
+
+}
+
+bool isVowel(const char* word) {
+
+  int len = strlen(word);
+
+  for (int i = 0; i < len; i++) {
+    char check = tolower(word[i]);
+
+    switch(check) {
+
+    case 'a':
+    case 'e':
+    case 'i':
+    case 'o':
+    case 'u':
+      return true;
+    }
+  }
+  return false;
+}
+
+// if the file does not exist
+bool find_rhyme_scheme(const char* filename, char* scheme)
+{
+  int i(0), wordCount;
+  ifstream input;
+  char line[1000], word[100], ending[20];
+
+  input.open(filename);
+  if (input.fail()) {
+    return false;
+  }
+  
+  rhyming_letter(RESET);
+
+  do {
+    input.getline(line,1000);
+    wordCount = count_words(line);
+    if (!get_word(line,wordCount,word)) break;
+    if (!find_phonetic_ending(word,ending)) cout << "No Dict" << endl;
+    scheme[i] = rhyming_letter(ending);
+
+    //cout << line << " - " << word << " - " <<  ending << " - " << scheme[i] << endl;    
+
+    i++;
+  } while (!input.fail());
+  input.close();
+
+  scheme[i] = '\0';
+
+  return true;
+}
+
+// identify sonnet takes the given filename and identifies the sonnet contained
+const char* identify_sonnet(const char* filename)
+{
+  char scheme[100];
+
+  if (!find_rhyme_scheme(filename,scheme)) cerr << "File not found" << endl;
+
+  if (!strcmp(scheme,"ababcdcdefefgg")) return "Shakespearean";
+  if (!strcmp(scheme,"abbaabbacdcdcd")) return "Petrarchan";
+  if (!strcmp(scheme,"ababbcbccdcdee")) return "Spenserian";
+
+  return "Unknown";
+}
