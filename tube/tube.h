@@ -28,3 +28,7 @@ bool get_symbol_position(char **map, int height, int width, char target, int &r,
 char get_symbol_for_station_or_line (const char* name);
 char get_symbol_from_file(const char *file_name, const char *name);
 bool same_name(const char *line, const char *name);
+
+// Question 3
+int validate_route(char **m, int height, int width, const char *start_station, char *route, char *destination);
+int check_route (char *route);

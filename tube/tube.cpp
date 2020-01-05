@@ -197,3 +197,44 @@ bool same_name(const char *line, const char *name) {
   }
   return false; 
 }
+
+//Question 3
+int validate_route(char **m, int height, int width, const char *start_station, char *route, char *destination) {
+  char start;
+  int current_row =0;
+  int current_col =0;
+
+  start = get_symbol_for_station_or_line(start_station);
+  // get the start postion on the map
+  bool start_position = get_symbol_position(m, height, width, start, current_row, current_col);
+  
+  // check if start_station is valid or not
+  if (isalnum(start) ==0 || start_position == false) {
+    return ERROR_START_STATION_INVALID;
+  }
+
+  // check if the route is valid or not
+  int res = check_route(route);
+  if (res != 0) {
+    return res;
+  }
+  return 1;
+}
+
+// check route will check the route is valid or not: 
+// In the same time, it will check the backtracking problem as well
+int check_route (char *route) {
+  int length = strlen(route);
+  for(int j = 0; j < length; j++){
+    char direction[255]="\0";
+    int i = 0;
+    while(route[j]!=',' && route[j]!='\0'){
+      direction[i] = route[j];
+      j++;
+      i++;
+    }
+    Direction enum_direction = string_to_direction(direction);
+    cout << enum_direction <<endl;
+  }
+  return 1;
+}
