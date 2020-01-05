@@ -6,7 +6,6 @@
 #include <cctype>
 #include <cstdlib>
 #include <fstream>
-#include <string.h>
 
 using namespace std;
 
@@ -177,9 +176,24 @@ char get_symbol_from_file(const char *file_name, const char *name) {
 
   while (!in.eof()){
     in.getline(line, 255);
-    int length = strlen(line);
-    int station_or_line_length = strlen(name);
-    cout <<line.substr(2,length-1)<<endl;;
-
+    if (same_name(line, name)) {
+      return line[0];
+      }
   }
+
+  return ' ';
+}
+
+bool same_name(const char *line, const char *name) {
+  int len_name = strlen(name);
+  int len_line = strlen(line);
+  for (int i =len_name-1; i>=0; i--){
+    if (name[i] != line[len_line-len_name+i]){
+      return false;
+    }
+    if (i==0 && (isalnum(line[len_line-len_name-1]) == 0)) {
+      return true;
+    }
+  }
+  return false; 
 }
