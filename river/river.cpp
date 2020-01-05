@@ -285,6 +285,7 @@ int perform_crossing (char* left, const char* targets) {
   // check if it is a valid move or not
   m_count = count_char(left, 'M');
   c_count = count_char(left, 'C');
+  cout << m_count << c_count <<endl;
   if (m_count < c_count || 3- m_count < 3 - c_count) {
     return ERROR_MISSIONARIES_EATEN;
   }
@@ -318,11 +319,17 @@ int play_game() {
     std::cout << "Enter boat configuration: ";
     std::cin >> target;
   
-    if (strlen(target) > 2) {
-      return ERROR_INPUT_STREAM_ERROR;
-    } 
-    result = perform_crossing(left, target);
+  if (strlen(target) > 2) {
+    return ERROR_INPUT_STREAM_ERROR;
+  } 
+  result = perform_crossing(left, target);
+  
+  if (result == ERROR_MISSIONARIES_EATEN) {
+    break;
+    return result; 
+    }
   }
+  return VALID_GOAL_STATE;
 }
 // Helper Functions
 void draw_boat(char**scene, bool is_left) {
